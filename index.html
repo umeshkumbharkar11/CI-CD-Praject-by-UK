@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart - Online Shopping</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f3f6;
+            color: #212121;
+        }
+
+        /* Navigation bar */
+        header {
+            background: #2874f0;
+            color: white;
+            padding: 15px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .search-box {
+            display: flex;
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            outline: none;
+        }
+
+        .search-box button {
+            padding: 12px 18px;
+            border: none;
+            background: white;
+            color: #2874f0;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            background: white;
+            color: #2874f0;
+            padding: 10px 25px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cart {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Categories */
+        .categories {
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            padding: 20px;
+            margin: 12px;
+            flex-wrap: wrap;
+        }
+
+        .category {
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .category span {
+            display: block;
+            font-size: 35px;
+            margin-bottom: 8px;
+        }
+
+        /* Hero banner */
+        .banner {
+            margin: 12px;
+            padding: 50px 8%;
+            min-height: 260px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            background: linear-gradient(120deg, #dbeafe, #fff0b3);
+        }
+
+        .banner h1 {
+            font-size: clamp(28px, 4vw, 45px);
+            margin-bottom: 15px;
+        }
+
+        .banner p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .shop-btn {
+            padding: 12px 25px;
+            background: #2874f0;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .banner-icon {
+            font-size: 110px;
+        }
+
+        /* Products */
+        .products-section {
+            margin: 12px;
+            background: white;
+        }
+
+        .section-title {
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            font-size: 23px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+
+        .product {
+            text-align: center;
+            padding: 22px 12px;
+            border-right: 1px solid #eee;
+        }
+
+        .product-image {
+            font-size: 70px;
+            margin-bottom: 15px;
+        }
+
+        .product h3 {
+            font-size: 15px;
+            min-height: 38px;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .discount {
+            color: #388e3c;
+            margin: 8px 0;
+        }
+
+        .add-btn {
+            margin-top: 10px;
+            padding: 9px 15px;
+            background: #2874f0;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .add-btn:hover,
+        .shop-btn:hover {
+            background: #1256c4;
+        }
+
+        footer {
+            background: #172337;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .products {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 15px;
+            }
+
+            .search-box {
+                order: 3;
+                flex-basis: 100%;
+                max-width: none;
+            }
+
+            .products {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .banner-icon {
+                font-size: 65px;
+            }
+
+            .banner {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <div class="logo">Flipkart</div>
+
+        <form class="search-box" id="searchForm">
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search for products, brands and more"
+            >
+            <button type="submit">🔍</button>
+        </form>
+
+        <button class="login-btn" onclick="loginDemo()">
+            Login
+        </button>
+
+        <div class="cart" onclick="showCart()">
+            🛒 Cart (<span id="cartCount">0</span>)
+        </div>
+    </header>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="category" data-category="Top Offers">
+            <span>🏷️</span>Top Offers
+        </div>
+        <div class="category" data-category="Mobiles">
+            <span>📱</span>Mobiles
+        </div>
+        <div class="category" data-category="Fashion">
+            <span>👕</span>Fashion
+        </div>
+        <div class="category" data-category="Electronics">
+            <span>🎧</span>Electronics
+        </div>
+        <div class="category" data-category="Home">
+            <span>🛋️</span>Home
+        </div>
+        <div class="category" data-category="Appliances">
+            <span>🧊</span>Appliances
+        </div>
+    </section>
+
+    <!-- Promotional banner -->
+    <section class="banner">
+        <div>
+            <h1>Big Saving Days!</h1>
+            <p>
+                Discover amazing deals on mobiles, fashion,
+                electronics and home essentials.
+            </p>
+            <button class="shop-btn" onclick="scrollToProducts()">
+                Shop Now →
+            </button>
+        </div>
+
+        <div class="banner-icon">🛍️</div>
+    </section>
+
+    <!-- Product section -->
+    <section class="products-section" id="productSection">
+        <h2 class="section-title">Best Deals For You</h2>
+
+        <div class="products" id="products">
+
+            <div class="product" data-category="Mobiles">
+                <div class="product-image">📱</div>
+                <h3>Smartphone 128GB</h3>
+                <p>⭐ 4.4 / 5</p>
+                <p class="price">₹14,999</p>
+                <p class="discount">25% off</p>
+                <button class="add-btn"
+                    onclick="addToCart('Smartphone 128GB')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-category="Electronics">
+                <div class="product-image">🎧</div>
+                <h3>Wireless Headphones</h3>
+                <p>⭐ 4.2 / 5</p>
+                <p class="price">₹1,299</p>
+                <p class="discount">48% off</p>
+                <button class="add-btn"
+                    onclick="addToCart('Wireless Headphones')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-category="Fashion">
+                <div class="product-image">👟</div>
+                <h3>Casual Sneakers</h3>
+                <p>⭐ 4.1 / 5</p>
+                <p class="price">₹1,799</p>
+                <p class="discount">40% off</p>
+                <button class="add-btn"
+                    onclick="addToCart('Casual Sneakers')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-category="Electronics">
+                <div class="product-image">⌚</div>
+                <h3>Smart Fitness Watch</h3>
+                <p>⭐ 4.3 / 5</p>
+                <p class="price">₹1,999</p>
+                <p class="discount">50% off</p>
+                <button class="add-btn"
+                    onclick="addToCart('Smart Fitness Watch')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-category="Home">
+                <div class="product-image">🛋️</div>
+                <h3>Home Cushion</h3>
+                <p>⭐ 4.0 / 5</p>
+                <p class="price">₹699</p>
+                <p class="discount">30% off</p>
+                <button class="add-btn"
+                    onclick="addToCart('Home Cushion')">
+                    Add to Cart
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Flipkart-Style Shopping Demo</p>
+        <p style="margin-top: 10px;">
+            Practice project built with HTML, CSS and JavaScript.
+        </p>
+        <p style="margin-top: 10px;">
+            This is not the official Flipkart website.
+        </p>
+    </footer>
+
+    <script>
+        let cartCount = 0;
+
+        function addToCart(productName) {
+            cartCount++;
+
+            document.getElementById("cartCount").textContent =
+                cartCount;
+
+            alert(productName + " added to your demo cart!");
+        }
+
+        function showCart() {
+            alert("You have " + cartCount + " item(s) in your demo cart.");
+        }
+
+        function loginDemo() {
+            alert("Login is not connected in this demo.");
+        }
+
+        function scrollToProducts() {
+            document.getElementById("productSection")
+                .scrollIntoView({ behavior: "smooth" });
+        }
+
+        // Search products
+        document.getElementById("searchForm")
+            .addEventListener("submit", function(event) {
+                event.preventDefault();
+                filterProducts();
+                scrollToProducts();
+            });
+
+        document.getElementById("searchInput")
+            .addEventListener("input", filterProducts);
+
+        function filterProducts() {
+            const query = document.getElementById("searchInput")
+                .value.toLowerCase().trim();
+
+            document.querySelectorAll(".product").forEach(product => {
+                const text = product.textContent.toLowerCase();
+
+                product.style.display =
+                    text.includes(query) ? "" : "none";
+            });
+        }
+
+        // Filter products by category
+        document.querySelectorAll(".category").forEach(category => {
+            category.addEventListener("click", function() {
+                const selected = this.dataset.category;
+
+                document.querySelectorAll(".product").forEach(product => {
+                    const productCategory = product.dataset.category;
+
+                    product.style.display =
+                        selected === "Top Offers" ||
+                        productCategory === selected
+                            ? ""
+                            : "none";
+                });
+
+                scrollToProducts();
+            });
+        });
+    </script>
+
+</body>
+</html>
+
